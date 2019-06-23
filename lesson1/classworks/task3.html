@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8" />
+   <title>JS-ADV. Lesson 1. Task 3 </title>
+</head>
+<body>
+  <div class="wrap" id="app"></div>
+
+  <script>
+
+  /*
+      Задание:
+      Сложить в элементе с id App следующую размету HTML:
+
+      <header>
+        <a href="http://google.com.ua">
+          <img src="https://www.google.com.ua/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+        </a>
+        <div class="menu">
+          <a href="#1"> link 1</a>
+          <a href="#1"> link 2</a>
+          <a href="#1"> link 3</a>
+        </div>
+      </header>
+
+      Используя следующие методы для работы:
+      getElementById
+      createElement
+      element.innerText
+      element.className
+      element.setAttribute
+      element.appendChild
+
+  */
+
+  var app = document.getElementById('app');
+
+  var header = document.createElement('header');
+  
+  var link = document.createElement('a');
+  link.href = "http://google.com.ua";
+
+  var imgTag = document.createElement('img');
+  imgTag.src="https://www.google.com.ua/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
+
+  var menuDiv = document.createElement('div');
+  menuDiv.className = 'menu';
+
+  var firstLink = document.createElement('a');
+  firstLink.href = '#1';
+  firstLink.innerText = 'link 1';
+
+  var secondLink = document.createElement('a');
+  secondLink.href = '#1';
+  secondLink.innerText = 'link 2';
+
+  var thirdLink = document.createElement('a');
+  thirdLink.href = '#1';
+  thirdLink.innerText = 'link 3';
+
+  //menuDiv.append(firstLink, secondLink, thirdLink);
+  menuDiv.appendChild(firstLink);
+  menuDiv.appendChild(secondLink);
+  menuDiv.appendChild(thirdLink);
+
+  link.appendChild(imgTag);
+
+  header.appendChild(link);
+  header.appendChild(menuDiv);
+
+  app.appendChild(header);
+
+
+
+  
+
+  
+
+  </script>
+</body>
+</html>
