@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ITEA-JS ADVANCED - LESSON 2: CLASSWORK 2</title>
+  <link rel="stylesheet" href="css/style.min.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="testBlock hover">
+      <button class="iButton" id="mouseHover">1. Hover!</button>
+      <ul id="hoverResult" class="resultBlock"></ul>
+    </div>
+
+    <div class="testBlock click">
+      <button class="iButton" id="mouseClick">2. Click for do things</button>
+      <div id="clickResult" class="resultBlock one two three four five six"></div>
+    </div>
+
+    <div class="testBlock random">
+      <button class="iButton" id="mouseLight">3. Click for turn on lights</button>
+      <div id="lightResult" class="resultBlock"></div>
+    </div>
+
+    <div class="testBlock keyboard">
+      <button class="iButton" id="keyboardButton">4. Press any key</button>
+      <div id="keyboardResult" class="resultBlock key-colors"></div>
+    </div>
+
+  </div>
+
+  <script>
+    /*
+
+      Поработаем немного с ивентами:
+      onmouseenter
+      onclick
+      oncontextmenu
+      onkeydown
+
+      Задание:
+      На каждую из конопок назначить действие которое будет выполнять следующее действие:
+      1.На ховер(onmouseenter) повесить обработчик который будет при каждом наведении
+        на кнопку будет выводить в блок результатом елемент li с текстом "hovered!"
+        у которого будет один из следующих класов:
+        red blue green orange purple
+
+      2.На кнопку клика(onclick) повесить обработчик который будет удалять классы с
+        блока с результатом по очереди в таком порядке:
+
+        six > two > three > four > one > five
+
+        после того как блок окажется пустым, добавить их в порядке возрастания
+
+        one > two > three ... > six
+
+      3. На кнопку клика (Light) повесить обработчик, который будет выводить в 
+      блок с результатом (lightResult) поочередно один из цветов светофора:
+      Цикл: Off -> Red -> Yellow -> Green -> Off
+
+      4. На кнопку с обработчиком нажатия (onkeydown) повесить обработчик который будет:
+
+        - Выводить в блок с результатом(keyboardResult) число нажатий на любую из клавиш клавиатуры.
+        - Давать блоку (keyboardResult) классы, которые соотсветствуют числу кликов:
+
+        Н-р:
+        1 -> one
+        3 -> three
+        5 -> five
+        11 -> one one
+        115 -> one one five
+
+
+
+    */
+
+   // task 1
+
+    var arrOfColors = ['red', 'blue', 'green', 'orange', 'purple'];
+
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var mouseHover = document.getElementById('mouseHover');
+    var mouseClick = document.getElementById('mouseClick');
+    var mouseLight = document.getElementById('mouseLight');
+    var keyboardButton = document.getElementById('keyboardButton');
+
+    mouseHover.onmouseenter = function(e){
+      var listEl = document.createElement('li');
+      listEl.innerText = 'hovered!';
+      listEl.classList.add(arrOfColors[getRandomIntInclusive(0, arrOfColors.length - 1)]);
+
+      e.target.nextElementSibling.append(listEl);
+    }
+
+    // task 2
+
+    var clickIndex = 0;
+    var direction = true;
+
+    var arrOfClasses = ['six', 'two', 'three', 'four', 'one', 'five'];
+
+    var arrOfNumbers = ['one', 'two', 'three', 'four', 'five', 'six'];
+
+    mouseClick.onclick = function(e){
+      var el = e.target.nextElementSibling;
+
+      if(direction){
+        for(var item of arrOfClasses) {
+          if(el.matches('.' + item)){
+            el.classList.remove(item);
+            if(arrOfClasses[arrOfClasses.length - 1] == item){
+              direction = !direction;
+            }
+            return;
+          }
+        }
+        
+      } else {
+        for (var item of arrOfNumbers){
+          if(!el.matches('.' + item)){
+            el.classList.add(item);
+            if(arrOfNumbers[arrOfNumbers.length - 1] == item){
+              direction = !direction;
+            }
+            return;
+          }
+        }
+      }        
+    }
+
+    // task 3
+
+    var arrOfLights = ['Red', 'Yellow', 'Green'];
+
+    mouseLight.onclick = function(e){
+        var randomLight =  arrOfLights[getRandomIntInclusive(0, arrOfLights.length - 1)];
+        e.target.nextElementSibling.innerText = randomLight;
+    }
+
+    // taks 4
+
+    var counter = 0;
+    keyboardButton.onkeydown = function(e){
+      var el =  e.target.nextElementSibling;
+      el.innerText = counter;
+      var arrOfIndexes = counter.toString().split('');
+
+      var arrOfWords = arrOfIndexes.map( x => { 
+        switch (x){
+          case '0':
+            return  x = 'zero';
+          case '1':
+            return  x = 'one';
+          case '2':
+            return  x = 'two';
+          case '3':
+            return  x = 'three';
+          case '4':
+            return  x = 'four';
+          case '5':
+            return  x = 'five';
+          case '6':
+            return  x = 'six';
+          case '7':
+            return  x = 'seven';
+          case '8':
+            return  x = 'eight';
+          case '9':
+            return  x = 'nine';
+          default:
+            return  x = 'some number';
+        }
+      });
+
+      for (var item of arrOfWords){
+        el.classList.add(item);
+      }
+      
+      counter++;
+        
+    }
+  </script>
+</body>
+</html>
