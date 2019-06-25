@@ -38,8 +38,8 @@
 
   var header = document.createElement('header');
   
-  var link = document.createElement('a');
-  link.href = "http://google.com.ua";
+  var imgLink = document.createElement('a');
+  imgLink.href = "http://google.com.ua";
 
   var imgTag = document.createElement('img');
   imgTag.src="https://www.google.com.ua/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
@@ -47,35 +47,19 @@
   var menuDiv = document.createElement('div');
   menuDiv.className = 'menu';
 
-  var firstLink = document.createElement('a');
-  firstLink.href = '#1';
-  firstLink.innerText = 'link 1';
+  for (var i = 1; i < 4; i++) {
+    var link = document.createElement('a');
+    link.href = '#' + i;
+    link.innerText = 'link' + i;
+    menuDiv.appendChild(link);
+  }
 
-  var secondLink = document.createElement('a');
-  secondLink.href = '#1';
-  secondLink.innerText = 'link 2';
+  imgLink.appendChild(imgTag);
 
-  var thirdLink = document.createElement('a');
-  thirdLink.href = '#1';
-  thirdLink.innerText = 'link 3';
-
-  //menuDiv.append(firstLink, secondLink, thirdLink);
-  menuDiv.appendChild(firstLink);
-  menuDiv.appendChild(secondLink);
-  menuDiv.appendChild(thirdLink);
-
-  link.appendChild(imgTag);
-
-  header.appendChild(link);
+  header.appendChild(imgLink);
   header.appendChild(menuDiv);
 
-  app.appendChild(header);
-
-
-
-  
-
-  
+  app.appendChild(header);  
 
   </script>
 </body>

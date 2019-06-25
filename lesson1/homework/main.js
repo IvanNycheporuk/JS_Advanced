@@ -50,6 +50,12 @@ function getRandomIntInclusive(min, max) {
 }
 
 function showColor(a, b, c){
+  var arrOfArgs = Array.from(arguments); 
+  arrOfArgs.forEach(function(arg){
+    if (arg.length === 1) {
+      arg = '0' + arg;
+    }
+  })
   var colorText = document.getElementById('currentColor');
   colorText.innerText = '#' + a + b + c;
 }

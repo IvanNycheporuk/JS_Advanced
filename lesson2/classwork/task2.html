@@ -94,7 +94,7 @@
       listEl.innerText = 'hovered!';
       listEl.classList.add(arrOfColors[getRandomIntInclusive(0, arrOfColors.length - 1)]);
 
-      e.target.nextElementSibling.append(listEl);
+      document.getElementById('hoverResult').appendChild(listEl);
     }
 
     // task 2
@@ -118,8 +118,7 @@
             }
             return;
           }
-        }
-        
+        }        
       } else {
         for (var item of arrOfNumbers){
           if(!el.matches('.' + item)){
