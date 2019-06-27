@@ -20,3 +20,58 @@
 
   var OurSliderImages = ['images/cat1.jpg', 'images/cat2.jpg', 'images/cat3.jpg', 'images/cat4.jpg', 'images/cat5.jpg', 'images/cat6.jpg', 'images/cat7.jpg', 'images/cat8.jpg'];
   var currentPosition = 0;
+  var sliderContainer = document.getElementById('slider');
+
+  var btnNext = document.getElementById('NextSilde');
+  var btnPrev = document.getElementById('PrevSilde');
+
+  function buildSlider(el, arr){
+    for (var i = 0; i < arr.length - 1; i++) {
+      var slide = document.createElement('img');
+      slide.src = arr[i];
+
+      el.appendChild(slide);
+    }    
+  }
+
+  function renderImage(index) {
+    var slide = document.createElement('img');
+    slide.src = OurSliderImages[index];
+    sliderContainer.innerHTML = '';
+
+    sliderContainer.appendChild(slide);
+
+    setTimeout(()=> slide.classList.add('animate'), 300);
+  }
+
+  function nextSlide() {
+    if (currentPosition === OurSliderImages.length - 1) {
+      currentPosition = 0;
+    } else {
+      currentPosition += 1;
+    }
+    
+    renderImage(currentPosition);    
+  }
+
+  function prevSlide() {
+    if (currentPosition === 0) {
+      currentPosition = OurSliderImages.length - 1;
+    } else {
+      currentPosition -= 1;
+    }
+    renderImage(currentPosition);
+  }
+
+
+  window.addEventListener('load', function(){
+    renderImage(currentPosition, OurSliderImages);
+    
+    btnNext.addEventListener('click', function(){
+      nextSlide(currentPosition);
+    });
+
+    btnPrev.addEventListener('click', function(){
+      prevSlide(currentPosition);
+    });
+  })
