@@ -44,28 +44,27 @@
     setTimeout(()=> slide.classList.add('animate'), 300);
   }
 
-  function nextSlide() {
-    if (currentPosition === OurSliderImages.length - 1) {
-      currentPosition = 0;
+  function nextSlide(el) {
+    if (el === OurSliderImages.length - 1) {
+      el = 0;
     } else {
-      currentPosition += 1;
+      el += 1;
     }
     
-    renderImage(currentPosition);    
+    renderImage(el);    
   }
 
-  function prevSlide() {
-    if (currentPosition === 0) {
-      currentPosition = OurSliderImages.length - 1;
+  function prevSlide(el) {
+    if (el === 0) {
+      el = OurSliderImages.length - 1;
     } else {
-      currentPosition -= 1;
+      el -= 1;
     }
-    renderImage(currentPosition);
+    renderImage(el);
   }
-
 
   window.addEventListener('load', function(){
-    renderImage(currentPosition, OurSliderImages);
+    renderImage(currentPosition);
     
     btnNext.addEventListener('click', function(){
       nextSlide(currentPosition);

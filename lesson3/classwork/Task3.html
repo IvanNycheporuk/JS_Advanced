@@ -92,13 +92,24 @@
         })
       }
 
+      function updateButtonState(container){
+        var buttons = container.querySelectorAll('button');
+        var ball = container.querySelector('.ball');
+        var points = container.querySelectorAll('.roadMapPoint');
+
+        buttons.forEach( btn => btn.removeAttribute('disabled'));
+
+        if (ball === points[0]) buttons[0].setAttribute('disabled', true)
+        if (ball === points[points.length - 1]) buttons[1].setAttribute('disabled', true);
+      }
+
       var containers = document.querySelectorAll('.roadMap__container');
 
       containers.forEach( function( container ){
         var pointsContainer = container.querySelector('.roadMap');
         var points = pointsContainer.querySelectorAll('.roadMapPoint');
-        var buttons = container.querySelectorAll('button');
-        
+        var buttons = container.querySelectorAll('button');   
+
         buttons.forEach(function(button){
           button.addEventListener('click', function(e) {
             var ball = container.querySelector('.ball');
@@ -107,24 +118,15 @@
 
             if (e.target.dataset.direction == '>'){
               if(+ball.dataset.id < points.length) {
-                //var el =  e.target.nextElementSibling;
-                //console.log('closest', el);
-                //e.target.closest('button').removeAttribute('disabled');
                 pointsContainer.querySelector(`[data-id~='${+ball.dataset.id + 1}']`).classList.add('ball');  
-              } else {
-                //e.target.setAttribute('disabled', 'true');
-                pointsContainer.querySelector(`[data-id~='1']`).classList.add('ball'); 
-              }                                 
+              }                               
             } else {
               if(+ball.dataset.id > 1) {                
-                var el =  e.target.nextElementSibling;
-                console.log('closest', el);
                 pointsContainer.querySelector(`[data-id~='${+ball.dataset.id - 1}']`).classList.add('ball');  
-              } else {
-                //e.target.setAttribute('disabled', 'true');
-                pointsContainer.querySelector(`[data-id~='${points.length}`).classList.add('ball'); 
-              }
+              } 
             }
+
+            updateButtonState(container);
           })
         })
       })

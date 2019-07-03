@@ -52,33 +52,33 @@
 
       */
 
-	var ListCount = 0;
+      var ListCount = 0;
 
-	var btnAddToList = document.getElementById('AddToList');
-	var receiverInput = document.getElementById('Receiver');
-	var listContainer = document.getElementById('list');
-	var errorBlock = document.getElementById('error');
+      var btnAddToList = document.getElementById('AddToList');
+      var receiverInput = document.getElementById('Receiver');
+      var listContainer = document.getElementById('list');
+      var errorBlock = document.getElementById('error');
 
-	function addItemToList(){
-		if (ListCount >= 5) {
-			btnAddToList.setAttribute('disabled', true);
-			btnAddToList.removeEventListener('click', addItemToList);
+      function addItemToList(){
+        if (ListCount >= 5) {
+          btnAddToList.setAttribute('disabled', true);
+          btnAddToList.removeEventListener('click', addItemToList);
 
-			errorBlock.innerText = 'Maximum number of items is exceded';
+          errorBlock.innerText = 'Maximum number of items is exceded';
 
-		} else {
-			var listItem = document.createElement('li');
+        } else {
+          var listItem = document.createElement('li');
 
-			listItem.innerText = receiverInput.value;
-			receiverInput.value = '';
-			listContainer.appendChild(listItem);
-			receiverInput.focus();
+          listItem.innerText = receiverInput.value;
+          receiverInput.value = '';
+          listContainer.appendChild(listItem);
+          receiverInput.focus();
 
-			ListCount++;
-		}
-	}
+          ListCount++;
+        }
+      }
 
-	btnAddToList.addEventListener('click', addItemToList);
+      btnAddToList.addEventListener('click', addItemToList);
 
     </script>
   </body>
