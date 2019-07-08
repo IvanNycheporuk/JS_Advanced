@@ -25,15 +25,6 @@
   var btnNext = document.getElementById('NextSilde');
   var btnPrev = document.getElementById('PrevSilde');
 
-  function buildSlider(el, arr){
-    for (var i = 0; i < arr.length - 1; i++) {
-      var slide = document.createElement('img');
-      slide.src = arr[i];
-
-      el.appendChild(slide);
-    }    
-  }
-
   function renderImage(index) {
     var slide = document.createElement('img');
     slide.src = OurSliderImages[index];
@@ -44,23 +35,23 @@
     setTimeout(()=> slide.classList.add('animate'), 300);
   }
 
-  function nextSlide(el) {
-    if (el === OurSliderImages.length - 1) {
-      el = 0;
+  function nextSlide() {
+    if (currentPosition === OurSliderImages.length - 1) {
+      currentPosition = 0;
     } else {
-      el += 1;
+      currentPosition += 1;
     }
     
-    renderImage(el);    
+    renderImage(currentPosition);    
   }
 
-  function prevSlide(el) {
-    if (el === 0) {
-      el = OurSliderImages.length - 1;
+  function prevSlide() {
+    if (currentPosition === 0) {
+      currentPosition = OurSliderImages.length - 1;
     } else {
-      el -= 1;
+      currentPosition -= 1;
     }
-    renderImage(el);
+    renderImage(currentPosition);
   }
 
   window.addEventListener('load', function(){

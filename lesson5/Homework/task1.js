@@ -26,3 +26,11 @@
 
 
 */
+
+
+function Comment(name, text, avatarUrl) {
+  this.name = name;
+  this.text = text;
+  this.avatarUrl = avatarUrl;
+  this.likes = 0;
+}
