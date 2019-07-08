@@ -50,19 +50,23 @@ function encryptCesar(shiftNumber, word) {
   })
 }
 
-console.log(encryptCesar(1, 'AzZAa'));
+console.log(encryptCesar(4, 'AzZAa'));
+
+let encryptCesar3 = encryptCesar.bind(null, 3);
+
+//console.log(encryptCesar3('AaAaAa'));
 
 function decryptCesar(shiftNumber, word) {
   return word.split('').map( i => {
     if ( i === i.toUpperCase()) {
       if (i.charCodeAt() - shiftNumber < 'A'.charCodeAt()){
-        return String.fromCharCode('Z'.charCodeAt() - ((i.charCodeAt() - shiftNumber) - 'A'.charCodeAt() + 1))
+        return String.fromCharCode('Z'.charCodeAt() - (('A'.charCodeAt() + shiftNumber) - i.charCodeAt() - 1)) 
       } else {
         return String.fromCharCode(i.charCodeAt() - shiftNumber);
       }
     } else {
       if (i.charCodeAt() - shiftNumber < 'a'.charCodeAt()){
-        return String.fromCharCode('z'.charCodeAt() - ((i.charCodeAt() - shiftNumber) - 'a'.charCodeAt() + 1))
+        return String.fromCharCode('z'.charCodeAt() - (('a'.charCodeAt() + shiftNumber) - i.charCodeAt() - 1))
       } else {
         return String.fromCharCode(i.charCodeAt() - shiftNumber);
       }
@@ -70,6 +74,11 @@ function decryptCesar(shiftNumber, word) {
   })
 }
 
-console.log(decryptCesar(1, 'BaABb'));
+console.log(decryptCesar(4, 'ZzAaAaBb'));
+
+let decryptCesar4 = decryptCesar.bind(null, 4);
+
+console.log(decryptCesar4('ZzAaAaBb'));
+
 
 
