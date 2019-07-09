@@ -27,12 +27,12 @@
 function Comment(name, text, avatarUrl) {
   this.name = name;
   this.text = text;
-  this.avatarUrl = avatarUrl;
+  if(avatarUrl) this.avatarUrl = avatarUrl;
   this.likes = 0;
 }
 
-let defaultComment = {
-  defaultAvatar: 'https://ih1.redbubble.net/image.527035743.3216/flat,550x550,075,f.u1.jpg',
+Comment.prototype = {
+  avatarUrl: 'https://ih1.redbubble.net/image.527035743.3216/flat,550x550,075,f.u1.jpg',
   addLike: function(){
     this.likes++;
   }
@@ -45,7 +45,7 @@ let comment4 = new Comment('fourth', 'fourth test comment', './images/cat4.jpg')
 
 let comments = [comment1, comment2, comment3, comment4];
 
-Object.setPrototypeOf(comment1, defaultComment);
+//Object.setPrototypeOf(comment1, defaultComment);
 
 let commentsContainer = document.getElementById('CommentsFeed');
 
@@ -65,7 +65,7 @@ function Avatar(comments){
       block.appendChild(description); 
 
       let avatar = document.createElement('img');
-      avatar.src = comment.avatarUrl || comment.defaultAvatar;
+      avatar.src = comment.avatarUrl;
       block.appendChild(avatar);
 
       commentsContainer.appendChild(block);      
