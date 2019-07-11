@@ -17,6 +17,26 @@
             День нужно возвратить в div#result в текстовом формате т.е понедельник, вторник, суббота и т.д
           */
 
+        const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        const btnShowDay = document.getElementById('ShowDayButton');     
+        const result = document.getElementById('result');
+
+        const showDayOfTheWeek = () => {
+            var selectedDate = new Date(document.getElementById('MyDateSelector').value).getDay();
+            
+            if(!selectedDate) {
+                alert('please select a date');
+                return;
+            }
+
+            result.innerText = daysOfTheWeek[selectedDate];
+        }
+
+        btnShowDay.addEventListener('click', showDayOfTheWeek);
+
+
+
       </script>
 </body>
 </html>
