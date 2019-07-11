@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+    <!-- 
+        let direction = 1;
+        let counter = 0;
+
+        setInterval(function() {
+            counter += direction;
+
+            if(counter == 0 || counter == 5) direction *= -1;
+        dCounter.innerHTML = counter;
+        
+        }, 1000);
+    -->
+</head>
+<body>
+      <!--
+        Создайте счетчик секунд, который начинает отчет с 1 и заканчивается на 30,
+        также добавьте кнопки который останавливают отчет, и запускают его заново и добавьте кнопку обнуляющую отчет.
+        Также попробуйте изменить код так чтобы отчет начиналься с 30 и заканчивалься на 1.
+
+       + бонус: Сделать так что бы на каждый тик (1с/2c) менялся цвет фона. Можно на основе генератора случайного цвета с предудущих уроков.
+       + бонус: Сделать визуализацию стрелки которая идет по кругу
+            document.getElementById("myDIV").style.transform = "rotate(7deg)";
+
+       + бонус: Сделать кнопки которые выбирают режим в котором идет отсчет - обычный от 0 до 30 или реверсивный от 30 до 0
+      -->
+      <span id="timer"></span>
+
+      <button id="pauseBtn">pause</button>
+      <button id="continueBtn">continue</button>
+      <button id="resetBtn">reset</button>
+
+      <script>
+        let direction = true;
+
+        let counter = 0;
+
+        let timerBlock = document.getElementById('timer');
+
+        const startTimer = () => {
+            counter += direction ? 1 : -1; 
+            timerBlock.innerText = counter;
+            
+            if(counter == 5 || counter == 0) {
+                direction = !direction;
+            }
+        }
+
+        let timer = setInterval(startTimer, 1000);
+
+        let pauseBtn = document.getElementById('pauseBtn');
+        let continueBtn = document.getElementById('continueBtn');
+        let resetBtn = document.getElementById('resetBtn');
+
+        pauseBtn.addEventListener('click', () => {
+            clearInterval(timer);
+        });
+
+        continueBtn.addEventListener('click', () => {
+            timer = setInterval(startTimer, 1000);
+        });
+
+        resetBtn.addEventListener('click', () => {
+            counter = 0;
+        })
+        
+
+
+
+
+
+      </script>
+</body>
+</html>
