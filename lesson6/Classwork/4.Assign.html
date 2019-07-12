@@ -21,14 +21,60 @@
         * Изменять HTML можно.
 
     */
+      document.addEventListener('DOMContentLoaded', () => {
+        let firstForm = document.getElementById('firstForm');
+        let secondForm = document.getElementById('secondForm');
+        let combineBtn = document.getElementById('combineBtn');
+        let result = document.getElementById('result');
+
+        const firstObj = {};
+        const secondObj = {};
+        let combinedObj = {};
+
+        const manipulateObj = (obj) => {
+          e.preventDefault();          
+
+          firstObj[e.target.value.value] = e.target.key.value;
+
+          firstCode.innerText = JSON.stringify(firstObj);
+        }
+
+        const renderObj = () => {
+          combinedObj = {
+            ...firstObj,
+            ...secondObj
+          }
+
+          result.innerText = JSON.stringify(combinedObj);
+        }
+
+        firstForm.addEventListener('submit', (e) => {
+          e.preventDefault();          
+
+          firstObj[e.target.value.value] = e.target.key.value;
+
+          firstCode.innerText = JSON.stringify(firstObj);
+        });
+
+        secondForm.addEventListener('submit', (e) => {
+          e.preventDefault();          
+
+          secondObj[e.target.value.value] = e.target.key.value;
+
+          secondCode.innerText = JSON.stringify(secondObj);
+        });
+
+        combineBtn.addEventListener('click', renderObj);
+
+      });
     </script>
 </head>
 <body>
   <div class="wrap">
-      <div class="assigned">
-        <form class="ObjForm">
-            <input name="key" placeholder="Enter your key"/>
-            <input name="value" placeholder="Enter your value"/>
+      <div id="firstForm" class="assigned">
+        <form class="ObjForm" autocomplete="off">
+            <input name="key" placeholder="Enter your key" required/>
+            <input name="value" placeholder="Enter your value" required/>
             <button type="submit">Send</button>
         </form>
         <div class="createResult">
@@ -36,19 +82,13 @@
             Created Object
           </header>
           <div class="createdObj">
-            <code>
-              {
-                id:123,
-                b:'test',
-                demo:'test2'
-              }
-            </code>
+            <code id="firstCode"></code>
           </div>
         </div>
       </div>
 
-      <div class="assigned">
-        <form class="ObjForm">
+      <div id="secondForm" class="assigned">
+        <form class="ObjForm" autocomplete="off">
             <input name="key" placeholder="Enter your key"/>
             <input name="value" placeholder="Enter your value"/>
             <button type="submit">Send</button>
@@ -58,19 +98,13 @@
               Created Object
             </header>
             <div class="createdObj">
-              <code>
-                {
-                  id:123,
-                  b:'test',
-                  demo:'test2'
-                }
-              </code>
+              <code id="secondCode"></code>
             </div>
           </div>
       </div>
     </div>
     <div class="resultBlock">
-       <button>Combine Objects!</button>
+       <button id="combineBtn">Combine Objects!</button>
       <h3> Result: </h3>
       <div id="result"></div>
     </div>
@@ -79,12 +113,13 @@
 
       </script>
       <style>
-        .wrap{
+        .wrap {
           width: 800px;
           display: flex;
+          flex-direction: column;
         }
         .ObjForm,
-        .resultBlock{
+        .resultBlock {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
@@ -92,12 +127,22 @@
           padding: 10px 20px;
         }
 
-        .assigned{
-          width: 300px;
+        .assigned {
+          width: 800px;
           display: flex;
         }
-        .createResult header{
+        .createResult header {
           font-weight: 700;
+        }
+
+        code {
+          display: block;
+          width: 100%;
+          word-break: break-word;
+        }
+
+        #result {
+          word-break: break-all;
         }
       </style>
 </body>

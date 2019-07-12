@@ -5,9 +5,7 @@
     <title>Classwork</title>
 
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-
-      
+      document.addEventListener('DOMContentLoaded', () => {    
 
     /*
       Задание:
@@ -101,28 +99,29 @@
             })
           }
 
-          const filterByStar = (star) => {
-
-          }
-
           stars.forEach( item => {
             movieStars.appendChild(new Option(item, item));
           });
 
-          movieStars.addEventListener('change', (e) => {
-            console.log(movieStars.options, movieStars.selectedIndex);
-            console.log(e.target.options);
+          const filterByStar = (star) => movies.filter(x => x.starring.includes(star));
+          const filterByLength = (length) => movies.filter(x => x.duration > length);
+
+          movieStars.addEventListener('change', () => {
+            buildMoviesList(filterByStar(movieStars.options[movieStars.selectedIndex].value));
+          });
+
+          durationFilter.addEventListener('input', (e) => {
+            buildMoviesList(filterByLength(e.target.value));
           })
 
-
-
           buildMoviesList(movies);
-      })
-
+      });
 
     </script>
 </head>
 <body>
+  <!-- first task -->
+  
   <h1>Sorted array</h1>
   <label>
     Find a course
@@ -130,9 +129,13 @@
   </label>
   <button id="searchBtn">Search!</button>
   <ul id="sortedList"></ul>
+
+  <!-- second task -->
+
   <h2>Movies filter</h2>
   <select id="movieStars"></select>
-  <input id="durationFilter" type="text">
+  <input id="durationFilter" placeholder="filter by length" type="text">
   <ul id="moviesBlock"></ul>
+
 </body>
 </html>
