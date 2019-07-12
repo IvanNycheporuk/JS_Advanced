@@ -61,7 +61,7 @@
         - Результат в виде списка фильмов
     */
 
-        var stars = ['Elijah Wood', 'Ian McKellen', 'Orlando Bloom','Ewan McGregor',' Liam Neeson', 'Natalie Portman', 'Ewan McGregor', 'Billy Bob Thornton', 'Martin Freeman']
+        var stars = ['Elijah Wood', 'Ian McKellen', 'Orlando Bloom','Ewan McGregor',' Liam Neeson', 'Natalie Portman', 'Ewan McGregor', 'Billy Bob Thornton', 'Martin Freeman'];
         var movies = [
               {
                 name: "Lord of the Rigs",
@@ -84,7 +84,42 @@
               starring: [ 'Hugo Weaving', 'Natalie Portman', 'Rupert Graves']
             }
           ];
+        
+          let movieStars = document.getElementById('movieStars');
+          let moviesBlock = document.getElementById('moviesBlock');
+          let durationFilter = document.getElementById('durationFilter');
+
+          const buildMoviesList = (arr) => {
+            moviesBlock.innerHTML = arr.map( item => {
+              return `
+                      <li>
+                        <h3>Movie name: ${item.name}</h3>
+                        <span>Duration: ${item.duration}</span>
+                        <p>Starring: ${item.starring.join(',')}</p>
+                      </li>
+                      `
+            })
+          }
+
+          const filterByStar = (star) => {
+
+          }
+
+          stars.forEach( item => {
+            movieStars.appendChild(new Option(item, item));
+          });
+
+          movieStars.addEventListener('change', (e) => {
+            console.log(movieStars.options, movieStars.selectedIndex);
+            console.log(e.target.options);
+          })
+
+
+
+          buildMoviesList(movies);
       })
+
+
     </script>
 </head>
 <body>
@@ -94,6 +129,10 @@
     <input id="searchInput" type="text">
   </label>
   <button id="searchBtn">Search!</button>
-  <ul id="sortedList"></ul>  
+  <ul id="sortedList"></ul>
+  <h2>Movies filter</h2>
+  <select id="movieStars"></select>
+  <input id="durationFilter" type="text">
+  <ul id="moviesBlock"></ul>
 </body>
 </html>
