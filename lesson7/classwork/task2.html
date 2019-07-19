@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Constructors</title>
+  <meta charset="UTF-8">
+  <title>Constructors</title>
 </head>
+
 <body>
   <div class="wrap">
     <header>
@@ -26,7 +28,7 @@
         <button type="submit">Send Message</button>
       </form>
     </header>
-    
+
     <section>
       <ul id="message_list"></ul>
     </section>
@@ -36,57 +38,64 @@
 
   <script>    
     const initialMessageForm = document.getElementById('initialMessageForm');
+    let messages = [];
 
     initialMessageForm.addEventListener('submit', (e) => {
       e.preventDefault();
       let messageList = document.getElementById('message_list');
-      let message = new Message( new Date().getTime(), 
-                                initialMessageForm.author.value, 
-                                initialMessageForm.message.value,
-                                new Date().toDateString(), []);
+      let message = new Message(new Date().getTime(),
+        initialMessageForm.author.value,
+        initialMessageForm.message.value,
+        new Date().toDateString(), []);
 
       messageList.appendChild(message.Render());
     });
 
     class Message {
       constructor(id, author, text, date, answers) {
-        this.id = id,
-        this.author = author,
-        this.text = text,
-        this.date = date,
-        this.answers = answers   
-        this.AnswerMessage = this.AnswerMessage.bind(this);     
+        this.id = id;
+        this.author = author;
+        this.text = text;
+        this.date = date;
+        this.answers = answers;
       }
 
-      SkipMessage(id){
+      SkipMessage(id) {
         let messageList = document.getElementById('message_list');
         messageList.querySelector(`[data-id="${id}"]`).remove();
       }
 
       SendAnswer(obj) {
         this.answers.push(obj);
-        console.log(this);
+        return obj.Render();
       }
 
       AnswerMessage(e) {
+        let answerContainer = document.createElement('ul');
         let answerTextArea = document.createElement('textarea');
         let btnSendAnswer = document.createElement('button');
 
-        e.target.closest('li').append(answerTextArea, btnSendAnswer);
+        answerContainer.append(answerTextArea, btnSendAnswer)
+        e.target.closest('li').append(answerContainer);
 
         btnSendAnswer.innerText = 'Send answer';
-        btnSendAnswer.addEventListener('click', () => {
-          this.SendAnswer(new Answer(new Date().getTime(), 
-                                initialMessageForm.author.value, 
-                                initialMessageForm.message.value,
-                                new Date().toDateString(), [],
-                                this.id));
-        })       
+        btnSendAnswer.addEventListener('click', (e) => {
+          let answer = this.SendAnswer(new Answer(new Date().getTime(),
+            initialMessageForm.author.value,
+            answerTextArea.value,
+            new Date().toDateString(), [],
+            this.id));
+
+          e.target.closest('ul').appendChild(answer);
+        })
       }
 
       Render() {
         let message = document.createElement('li');
         message.dataset.id = this.id;
+
+        let answers =`"<ul>${this.GetAnswersHTML()}</ul>"`;
+
         message.innerHTML = `
                               <div class="message__date">${this.date}</div>
                               <div class="message__author"><b>${this.author}</b></div>
@@ -95,21 +104,29 @@
                                 <button class="_skipMessage">Skip</button>
                                 <button class="_answerMessage">Answer</button>
                               </div>
+                              ${answers}
                             `;
+                            
         let skipButton = message.querySelector('._skipMessage');
         skipButton.addEventListener('click', () => {
           this.SkipMessage(this.id);
-        });        
+        });
 
         let answerButton = message.querySelector('._answerMessage');
-        answerButton.addEventListener('click', this.AnswerMessage);
+        answerButton.addEventListener('click', (e) => { this.AnswerMessage(e) });
 
         return message;
       }
+
+      GetAnswersHTML() {
+        return this.answers.map(item => {
+          return item.Render().outerHTML;
+        }).join('');
+      }
     }
 
-    class Answer extends Message{
-      constructor(id, author, text, date, answer, parentId){
+    class Answer extends Message {
+      constructor(id, author, text, date, answer, parentId) {
         super(id, author, text, date, answer);
         this.parentId = parentId;
       }
@@ -166,4 +183,5 @@
 
   </script>
 </body>
+
 </html>
