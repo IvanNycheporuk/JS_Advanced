@@ -20,7 +20,33 @@
 
     */
     window.addEventListener("load", function () {
+      let toDoInput = document.getElementById('newToDo');
+      let btnAddToDo = document.getElementById('AddToDo');
+      let toDoList = document.getElementById('toDoList');
 
+      btnAddToDo.addEventListener('click', () => {
+        let itemText = toDoInput.value;
+
+        let listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <input type="checkbox" class="DoneCheckbox" />
+              <span class="TodoText">${itemText}</span>
+            <button>Remove</button>
+        `;
+
+        let checkBox = listItem.querySelector('input');
+        let removeBtn = listItem.querySelector('button');
+
+        checkBox.addEventListener('input', (e) => {
+          listItem.querySelector('.TodoText').classList.toggle('done');
+        });
+
+        removeBtn.addEventListener('click', () => {
+          listItem.remove();
+        })
+
+        toDoList.appendChild(listItem);
+      })
     });
   </script>
 </head>
@@ -29,14 +55,7 @@
       <input id="newToDo" class="textInput"/>
       <input id="AddToDo" class="addButton" type="button" value="Add"/>
     </header>
-    <ul id="toDoList">
-
-        <li class="listItem">
-            <input type="checkbox" class="DoneCheckbox" />
-            <span class="TodoText">{add text}</span>
-            <button>Remove</button>
-        </li>
-    </ul>
+    <ul id="toDoList"></ul>
 
   <style>
     .done{

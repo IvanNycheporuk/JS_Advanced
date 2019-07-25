@@ -22,11 +22,32 @@
     */
 
     window.addEventListener("load", function () {
-      var myWidth = document.getElementById('myWidth');
+      let customBlock = document.getElementById('result');
+      
+      let myWidth = document.getElementById('myWidth');
+      let myColor = document.getElementById('myColor');
+      let myHeight = document.getElementById('myHeight');
+      let myBorderRadius = document.getElementById('myBorderRadius');
+      let myMargin = document.getElementById('myMargin');
 
       myWidth.addEventListener('input', function(event){
-        console.log( event.target.value );
-        result.style.width = event.target.value + 'px';
+        customBlock.style.width = event.target.value + 'px';
+      });
+
+      myColor.addEventListener('input', function(event){        
+        customBlock.style.background = event.target.value;
+      });
+
+      myHeight.addEventListener('input', function(event){
+        customBlock.style.height = event.target.value + 'px';
+      });
+
+      myBorderRadius.addEventListener('input', function(event){
+        customBlock.style.borderRadius = event.target.value + 'px';
+      });
+
+      myMargin.addEventListener('input', function(event){
+        customBlock.style.margin = event.target.value + 'px';
       });
     });
 
@@ -37,9 +58,9 @@
     <form>
       <input type="range" id="myWidth" min="10" max="500" step="10"/>
       <input type="color" id="myColor" min="10" max="500" step="10"/>
-      <input type="range" id="" min="10" max="500" step="10"/>
-      <input type="range" id="" min="10" max="500" step="10"/>
-      <input type="range" id="" min="10" max="500" step="10"/>
+      <input type="range" id="myHeight" min="10" max="500" step="10"/>
+      <input type="range" id="myBorderRadius" min="10" max="500" step="10"/>
+      <input type="range" id="myMargin" min="10" max="500" step="10"/>
     </form>
 
     <div class="TemplatingResult">

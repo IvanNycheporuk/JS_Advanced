@@ -6,9 +6,55 @@
   <script>
     document.addEventListener('DOMContentLoaded', function(){
       var mainForm = document.getElementById('MyValidateForm');
-      console.log(mainForm.login);
-      console.dir(mainForm.login);
-    })
+      let submitBtn = document.getElementById('submit');
+      let licenseAgreement = document.getElementById('agree');
+
+      const checkIfEmpty = (el) => {
+        return el.length === 0;
+      }
+
+      const checkSamePassword = (pass, confirmPass) => {
+        return pass === confirmPass;
+      }      
+
+      licenseAgreement.addEventListener('click', (e) => {
+        if (e.target.checked) {
+          submitBtn.removeAttribute('disabled');
+        } else {
+          submitBtn.setAttribute('disabled', '');
+        }
+      })
+
+      mainForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let valid = true;
+
+        if (checkIfEmpty(mainForm.login.value)) {
+          valid = false;
+          mainForm.login.classList.add('error');
+        } else {
+          mainForm.login.className = 'OK';
+        }
+
+        if (checkIfEmpty(mainForm.pas1.value)) {
+          valid = false;
+          mainForm.pas1.classList.add('error');
+        } else {
+          mainForm.pas1.className = 'OK';
+        }
+
+        if (!checkSamePassword(mainForm.pas1.value, mainForm.pas2.value)){
+          valid = false;
+          mainForm.pas2.classList.add('error');
+        } else {
+          mainForm.pas2.className = 'OK';
+        }     
+
+      });
+    });
+
+
     /*
       Задание:
         Сделать валидацию формы:
