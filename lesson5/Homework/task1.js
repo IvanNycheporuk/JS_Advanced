@@ -27,7 +27,7 @@
 function Comment(name, text, avatarUrl) {
   this.name = name;
   this.text = text;
-  if(avatarUrl) this.avatarUrl = avatarUrl;
+  if (avatarUrl) this.avatarUrl = avatarUrl;
   this.likes = 0;
 }
 
@@ -44,8 +44,6 @@ let comment3 = new Comment('third', 'third test comment', './images/cat3.jpg');
 let comment4 = new Comment('fourth', 'fourth test comment', './images/cat4.jpg');
 
 let comments = [comment1, comment2, comment3, comment4];
-
-//Object.setPrototypeOf(comment1, defaultComment);
 
 let commentsContainer = document.getElementById('CommentsFeed');
 
@@ -76,7 +74,5 @@ function Avatar(comments){
 }
 
 let avatars = new Avatar(comments);
-
-console.log(comment1);
 
 
