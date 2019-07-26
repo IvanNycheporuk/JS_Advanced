@@ -1,4 +1,12 @@
-/*
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fetch</title>
+
+    <!-- /*
   Задача:
 
   1. При помощи fetch получить данные:
@@ -49,4 +57,28 @@
         .then( friendsResponse)
         .then()
     })
-    .then( func)
+    .then( func) -->
+
+</head>
+<body>
+    <script>
+        fetch('http://www.json-generator.com/api/json/get/cgwbLkTxnS?indent=2')
+            .then(res1 => res1.json())    
+            .then(res1 => {
+                return res1[Math.floor(Math.random()*res1.length)];
+            })
+            .then(res1 => {
+                return fetch('http://www.json-generator.com/api/json/get/bTBBXQabKG?indent=2')
+                    .then(res2 => res2.json())
+                    .then(res2 => {
+                        let obj = {};
+                        obj.name = res1.company;
+                        obj.friends = res2[0].friends.map( item => item.name);
+
+                        console.log(obj);
+                    })
+            });
+    </script>
+    
+</body>
+</html>

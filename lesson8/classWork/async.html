@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        /*
+
+        Задание:
+
+            Написать при помощи async-await скрипт, который:
+
+            Получает список компаний:  http://www.json-generator.com/api/json/get/ceRHciXcVu?indent=2
+            Перебирает, выводит табличку:
+
+            # | Company  | Balance | Показать дату регистрации | Показать адресс |
+            1.| CompName | 2000$   | button                    | button
+            2.| CompName | 2000$   | 20/10/2019                | button
+            3.| CompName | 2000$   | button                    | button
+            4.| CompName | 2000$   | button                    | button
+
+            Данные о дате регистрации и адресс скрывать при выводе и показывать при клике.
+
+        */
+     -->
+</head>
+<body>
+
+    <script>
+        function scaryClown() {
+        // return new Promise(resolve => {
+        //     setTimeout(() => {
+        //     resolve('test');
+        //     }, 2000);
+        // });
+
+        setTimeout(()=> 'asdads', 2000)
+
+        //return 
+        }
+
+        async function msg() {
+        console.log('qwerty');
+        const msg = await scaryClown();
+        console.log('Message:', msg);
+        }
+
+        msg(); // Message: 🤡 <-- after 2 seconds    
+    </script>
+    
+</body>
+</html>
