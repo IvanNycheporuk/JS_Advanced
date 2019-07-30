@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        table, td{
+            border: 1px solid #000;
+            padding: 13px;
+        }
+
+        .hidden-data{
+            display: none;
+        }
+
+        .show + .hidden-data{
+            display: block;
+        }
+    </style>
     <!-- 
         /*
 
@@ -29,25 +43,92 @@
 <body>
 
     <script>
-        function scaryClown() {
-        // return new Promise(resolve => {
-        //     setTimeout(() => {
-        //     resolve('test');
-        //     }, 2000);
-        // });
-
-        setTimeout(()=> 'asdads', 2000)
-
-        //return 
+        async function getData() {
+            let res = await fetch('http://www.json-generator.com/api/json/get/ceRHciXcVu?indent=2');
+            let data = await res.json();
+            
+            return data;
         }
 
-        async function msg() {
-        console.log('qwerty');
-        const msg = await scaryClown();
-        console.log('Message:', msg);
+        async function initTable() {
+            console.log('qwerty');
+            const data = await getData();
+
+            console.log(data);
+            new Table(document.querySelector('body'), data);
         }
 
-        msg(); // Message: 🤡 <-- after 2 seconds    
+        initTable();
+        
+        class Table {
+            constructor(el, data) {
+                this.el = el;
+                this.data = data;
+
+                this.Build();
+            }
+            
+            Build(){
+                this.el.appendChild(this.BuildHeader());
+                this.el.appendChild(this.BuildBody());
+            }
+
+            BuildHeader() {
+                let tableHead = document.createElement('thead');
+
+                tableHead.innerHTML = `
+                    <tr>
+                        <th>#</th>
+                        <th>Company</th>
+                        <th>Balance</th>
+                        <th>Показать дату регистрации</th>
+                        <th>Показать адресc</th>
+                    </tr>
+                `;
+
+                return tableHead;
+            }
+
+            BuildBody() {
+                let tableBody = document.createElement('tbody');
+
+                this.data.forEach( (item, i) => {
+                    let bodyRow = document.createElement('tr');
+                    bodyRow.innerHTML = `
+                        <td>${i}</td>
+                        <td>${item.company}</td>
+                        <td>${item.balance}</td>
+                        <td>
+                            <button class="_btnRedistrationDate">show/hide</button>
+                            <span class="hidden-data">${item.registered}</span>
+                        </td>
+                        <td>
+                            <button class="_btnAddress">show/hide</button>
+                            <span class="hidden-data">
+                                country: ${item.address.country},
+                                <br>
+                                city: ${item.address.city},
+                                <br>
+                                street: ${item.address.city}, ${item.address.house}
+                            </span>
+                        </td>
+                    `;
+
+                    bodyRow.querySelector('._btnRedistrationDate').addEventListener('click', (e) => {
+                        e.target.classList.toggle('show');
+                    });
+
+                    bodyRow.querySelector('._btnAddress').addEventListener('click', (e) => {
+                        e.target.classList.toggle('show');
+                    });
+
+                    tableBody.appendChild(bodyRow);
+                });
+
+                return tableBody;
+            }
+        }        
+
     </script>
     
 </body>
