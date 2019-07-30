@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task 2</title>
+    <!-- 
+    /*
+
+        Задание 2:
+        Написать форму логина (логин пароль), которая после отправки данных записывает их в localStorage.
+        Если в localStorage есть записть - На страниче вывести "Привет {username}", если нет - вывести окно
+        логина.
+
+        + бонус, сделать кнопку "выйти" которая удаляет запись из localStorage и снова показывает форму логина
+        + бонус сделать проверку логина и пароля на конкретную запись. Т.е. залогинит пользователя если
+        он введет только admin@example.com и пароль 12345678
+
+
+    */
+     -->
+</head>
+<body>
+    <form id="auth">
+        <input type="text" name="userName" required>
+        <input type="password" name="userPassword" required>
+        <input type="submit" value="login">
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let authForm = document.getElementById('auth');
+
+            authForm.addEventListener('submit', (e) => {
+                e.preventDefault();                
+                let data = {};
+                data.userName = authForm.userName;
+                data.userPassword = authForm.userPassword;
+            })
+        });
+    </script>
+    
+</body>
+</html>
