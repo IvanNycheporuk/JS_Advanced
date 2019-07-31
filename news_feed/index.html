@@ -5,11 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>News Feed</title>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <style>
+        .error {
+            border: 1px solid red;
+        }
+
+        .comment-form{
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .comment{
+            border: 1px solid #ced4da;
+            border-left: 4px solid lightblue;
+            padding: .375rem .75rem;
+            border-radius: .25rem;
+        }
+
+    </style>
 </head>
 <body>
-    <div id="App" class="pure-g"></div>
-    <script src="script.js"></script>
+    <div id="App"></div>
+    <script src="./dist/bundle.js"></script>    
     
 </body>
 </html>
