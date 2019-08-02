@@ -1,8 +1,10 @@
 import Likes from './Likes';
 import CommentForm from './CommentForm';
+import App from './script';
 
 export default class Post {
     constructor(data) {
+        this.id = data.id || new Date().getTime()
         this.data = data;
         this.comments = [];
     }
@@ -15,15 +17,22 @@ export default class Post {
 
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, '0');
-        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
 
         today = mm + '/' + dd + '/' + yyyy;
 
-        let likes = new Likes().Build();
+        let likes = new Likes((likesCount) => {
+            App.UpdatePostLikes(this.id, likesCount);
+        });
+        likes.Build();
+
+        if (this.data.likesCount) {
+            likes.SetCount(this.data.likesCount);
+        }
 
         post.innerHTML = `
-            <div class="card-body">
+            <div class="card-body" data-id=${this.id}>
                 <div class="info d-flex justify-content-between ">
                     <span>${authorName}</span>
                     <span>${today}</span>
@@ -38,15 +47,14 @@ export default class Post {
                     </div>
                 </div>                    
                 <div class="comment-block">
-                </div>
-                
+                </div>                
             </div>
         `;
 
-        post.querySelector('.likes-container').appendChild(likes);
+        post.querySelector('.likes-container').appendChild(likes.Build());
 
         let commentForm = new CommentForm((data) => {
-            this.AddComment(data);
+            this.AddComment(data, true);            
             this.RenderComments();
         });
 
@@ -57,28 +65,39 @@ export default class Post {
         });
 
         this.el = post;
+
         return post;
     }
 
-    AddComment(data) {
+    AddComment(data, isNeedSave) {
         let comment = document.createElement('div');
-
-        console.log(data);
+        comment.classList.add('comment', 'mb-3');
 
         comment.innerHTML = `
-            <div class="comment mb-3">
-                <span>Author: ${data.commentAuthor}</span>
-                <p>${data.commentDescription}</p>
-            </div>
+            <span>Author: ${data.commentAuthor}</span>
+            <p>${data.commentDescription}</p>
         `;
 
+        if(isNeedSave) {
+            App.AddPostComment(this.id, {
+                author: data.commentAuthor,
+                text: data.commentDescription
+            });
+        }
+
         this.comments.push(comment);
+        this.UpdateCommentsCounter();
+        this.RenderComments();
+    }
+
+    UpdateCommentsCounter() {
+        this.el.querySelector(".comments-count").innerHTML = `Comments (${this.comments.length})`;
     }
 
     RenderComments() {
-        let comentsContainer = this.el.querySelector('.comment-block');
+        let commentsContainer = this.el.querySelector('.comment-block');
         this.comments.forEach( item => {
-            comentsContainer.appendChild(item);
+            commentsContainer.appendChild(item);
         })            
     } 
 }

@@ -1,6 +1,9 @@
 export default class Likes{
-    constructor() {
+    constructor(onClick) {
         this.likesCount = 0;
+        this.el = null;
+
+        this.onClick = onClick;
     }
 
     Build() {
@@ -16,12 +19,20 @@ export default class Likes{
 
         this.AddEvents(likesBlock);
 
-        return likesBlock;
+        this.el = likesBlock;
+
+        return this.el;
     }
 
     AddEvents(el) {
         el.querySelector('.likes').addEventListener('click', () => {
-            el.querySelector('.counter').innerHTML = `Likes: ${++this.likesCount}`
+            el.querySelector('.counter').innerHTML = `Likes: ${++this.likesCount}`;
+            this.onClick(this.likesCount);
         });
+    }
+
+    SetCount(value) {
+        this.el.querySelector('.counter').innerHTML = `Likes: ${value}`;
+        this.likesCount = value;
     }
 }

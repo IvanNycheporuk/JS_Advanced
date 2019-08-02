@@ -14,14 +14,6 @@ export default class PostForm {
                 <label for="postDescription">Description</label>
                 <textarea name="postDescription" id="postDescription" class="form-control"></textarea>
             </div>
-            <div class="form-row mb-3">
-                <div class="col">
-                <input type="text" class="form-control" placeholder="Image url">
-                </div>
-                <div class="col">
-                <input type="file" class="form-control-file">
-                </div>
-            </div>
             <div class="form-group">
                 <input type="submit" class="form-control" id="submit">
             </div>
